@@ -18,9 +18,8 @@ export const useUrlStore = defineStore("Urls", {
     async getUrls() {
       try {
         const q = query(collection(db, "urls"));
-
         const querySnapshot = await getDocs(q);
-
+        
         querySnapshot.forEach((doc) => {
           this.documents.push({
             id: doc.id,
@@ -34,17 +33,12 @@ export const useUrlStore = defineStore("Urls", {
     },
     async addUrl(id) {
       try {
-        /*  const regularExpresion =
-          /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
-        const isYoutubeVideo = regularExpresion.test(url);
-        console.log(url);
-
-        if (!isYoutubeVideo) return; */
-
+        if (id === undefined) {
+          return;
+        }
         const { description, title, img } = await tubeApi(id);
 
         const objetoDoc = {
-          /*  url: url, */
           imagen: img,
           title: title,
           description: description,
@@ -53,6 +47,9 @@ export const useUrlStore = defineStore("Urls", {
         this.documents.push({
           ...objetoDoc,
           id: docRef.id,
+          imagen: docRef.imagen,
+          title: docRef.title,
+          description: docRef.description
         });
       } catch (error) {
         console.error(error);
@@ -71,3 +68,11 @@ export const useUrlStore = defineStore("Urls", {
     },
   },
 });
+//
+//codigo para buscar por url directo.
+/*  const regularExpresion =
+          /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
+        const isYoutubeVideo = regularExpresion.test(url);
+        console.log(url);
+
+        if (!isYoutubeVideo) return; */
