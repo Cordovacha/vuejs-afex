@@ -10,6 +10,7 @@ urlStore.getUrls();
 urlStore.addUrl();
 urlStore.$state.documents
 const url = ref("");
+let selectedItem = ref(null);
 
 //this is a confirm push id to storeBase
 const handleSubmit = () => {
@@ -26,8 +27,9 @@ const cancel = () => { };
 
 const open = ref(false);
 
-const showModal = async (id) => {
+const showModal = async (item) => {
   open.value = true;
+  selectedItem = item;
 };
 
 const handleOk = (e) => {
@@ -51,7 +53,7 @@ watchEffect(async () => {
         <hr />
         <!-- {{ urlStore.documents }} -->
         <hr />
-        {{ data }}
+        {{ selectedItem.imagen }}
       </a-modal>
 
       <p>Add Video</p>
@@ -63,7 +65,7 @@ watchEffect(async () => {
 
       <a-list>
         <a-list-item v-for="item of urlStore.documents" :key="item.id">
-          <img :src="item.imagen" alt="" width="200" @click="showModal()" />
+          <img :src="item.imagen" alt="" width="200" @click="showModal(item)" />
 
           <a-popconfirm title="estas seguro que quieres eliminar este video?" ok-text="Si" cancel-text="No"
             @confirm="confirm(item.id)" @cancel="cancel">
