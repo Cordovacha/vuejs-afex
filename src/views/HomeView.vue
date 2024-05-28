@@ -45,9 +45,12 @@ const handleOk = (e) => {
     <a-layout-content style="padding: 0 50px; width: 100%">
       <a-modal v-model:open="open" title="Basic Modal" @ok="handleOk">
         <a-list>
-          <img :src="selectitem.imagen" alt="" width="300">       {{ selectitem.title }} {{ selectitem.description }}
+          <img :src="selectitem.imagen" alt="" width="300"> {{ selectitem.title }} {{ selectitem.description }}
           <hr>
-   
+          <a-popconfirm title="estas seguro que quieres eliminar este video?" ok-text="Si" cancel-text="No"
+            @confirm="confirm(selectitem.id)" @cancel="cancel">
+            <a-button danger>Eliminar</a-button>
+          </a-popconfirm>
           <hr>
         </a-list>
       </a-modal>
@@ -60,14 +63,15 @@ const handleOk = (e) => {
         <a-button type="primary" html-type="submit">Agregar</a-button>
       </form>
 
-      <a-list>
+
+      <a-list gap="middle" align="start" vertical>
         <a-list-item v-for="item of urlStore.documents" :key="item.id">
+
+
           <img :src="item.imagen" alt="" width="200" @click="showModal(item)"></img>
 
-          <a-popconfirm title="estas seguro que quieres eliminar este video?" ok-text="Si" cancel-text="No"
-            @confirm="confirm(item.id)" @cancel="cancel">
-            <a-button danger>Eliminar</a-button>
-          </a-popconfirm>
+
+
         </a-list-item>
       </a-list>
     </a-layout-content>
