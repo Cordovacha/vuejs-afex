@@ -1,23 +1,20 @@
 <script setup>
-import { computed, ref, watchEffect } from "vue";
+import { ref } from "vue";
 import { useUrlStore } from "@/stores/urlStore";
-
-const data = ref([])
 
 const urlStore = useUrlStore();
 urlStore.getUrls();
 urlStore.addUrl();
-urlStore.$state.documents
 
 const url = ref("");
 
-let selectitem = ref(null)
 
 //this is a confirm push id to storeBase
 const handleSubmit = () => {
   urlStore.addUrl(url.value);
 };
 
+let selectitem = ref(null)
 //this delete all objet
 const confirm = (id) => {
   urlStore.deleteUrl(id);
@@ -64,14 +61,9 @@ const handleOk = (e) => {
       </form>
 
 
-      <a-list gap="middle" align="start" vertical>
+      <a-list gap="middle" vertical>
         <a-list-item v-for="item of urlStore.documents" :key="item.id">
-
-
           <img :src="item.imagen" alt="" width="200" @click="showModal(item)"></img>
-
-
-
         </a-list-item>
       </a-list>
     </a-layout-content>
@@ -82,7 +74,8 @@ const handleOk = (e) => {
 .organizar {
   display: flex;
   justify-content: flex-start;
-  width: 220%;
+  width: 96vw;
+  height: 99vh;
   flex-wrap: nowrap;
   flex-direction: column;
 }

@@ -32,12 +32,13 @@ export const useUrlStore = defineStore("Urls", {
       }
     },
     async addUrl(id) {
+      this.$reset()
       try {
         if (id === undefined) {
           return;
         }
-        const { description, title, img } = await tubeApi(id);
 
+        const { description, title, img } = await tubeApi(id);
         const objetoDoc = {
           imagen: img,
           title: title,
@@ -47,9 +48,6 @@ export const useUrlStore = defineStore("Urls", {
         this.documents.push({
           ...objetoDoc,
           id: docRef.id,
-          imagen: docRef.imagen,
-          title: docRef.title,
-          description: docRef.description,
         });
       } catch (error) {
         console.error(error);
