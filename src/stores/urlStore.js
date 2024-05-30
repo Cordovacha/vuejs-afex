@@ -32,7 +32,6 @@ export const useUrlStore = defineStore("Urls", {
       }
     },
     async addUrl(id) {
-      this.$reset()
       try {
         if (id === undefined) {
           return;
@@ -49,6 +48,7 @@ export const useUrlStore = defineStore("Urls", {
           ...objetoDoc,
           id: docRef.id,
         });
+        this.$documents.$reset()
       } catch (error) {
         console.error(error);
       } finally {
