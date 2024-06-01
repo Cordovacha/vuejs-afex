@@ -7,7 +7,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: #FBFBFB;
   min-height: 100vh;
 }
 </style>

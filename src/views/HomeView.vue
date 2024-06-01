@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useUrlStore } from "@/stores/urlStore";
 
 const urlStore = useUrlStore();
@@ -8,7 +8,7 @@ urlStore.addUrl();
 
 const url = ref("");
 
-  
+
 //this is a confirm push id to storeBase
 const handleSubmit = () => {
   urlStore.addUrl(url.value);
@@ -53,29 +53,35 @@ const handleOk = (e) => {
       </a-modal>
 
       <!--  <img :src="item.imagen" alt="" width="200" /> -->
-      <p>Add Video</p>
-
-      <form @submit.prevent="handleSubmit">
-        <a-input type="text" placeholder="Add Url" v-model:value="url" style="width: 200px" />
+      
+      <form @submit.prevent="handleSubmit" class="margin">
+        <h1>Agregar un video</h1>
+        <a-input type="text" placeholder="Add Url" v-model:value="url" style="width: 500px" />
         <a-button type="primary" html-type="submit">Agregar</a-button>
       </form>
 
 
-      <a-list gap="middle" vertical>
-        <a-list-item v-for="item of urlStore.documents" :key="item.id">
-          <img :src="item.imagen" alt="" width="200" @click="showModal(item)"></img>
-        </a-list-item>
+      <a-list :grid="{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }">
+        <a-row>
+          <a-list-item v-for="item of urlStore.documents" :key="item.id">
+            <img :src="item.imagen" alt="" width="300" @click="showModal(item)"></img>
+          </a-list-item>
+        </a-row>
       </a-list>
     </a-layout-content>
   </a-layout>
 </template>
 
 <style>
+.margin{
+margin-bottom: 5%;
+margin-top: 3%
+}
 .organizar {
   display: flex;
   justify-content: flex-start;
-  width: 96vw;
-  height: 99vh;
+  width: 97vw;
+  height: 100vh;
   flex-wrap: nowrap;
   flex-direction: column;
 }
@@ -84,5 +90,11 @@ const handleOk = (e) => {
   height: 4%;
   border-radius: 20%;
   display: flex;
+}
+
+.espacio {
+  width: 50%;
+  display: flex;
+  position: relative;
 }
 </style>
